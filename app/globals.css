@@ -1,26 +1,139 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fafafa;
+  --foreground: #18181b;
+  --muted: #52525b;
+  --accent: #14b8a6;
+  --accent-soft: rgba(20, 184, 166, 0.15);
+  --surface: #ffffff;
+  --border: #e4e4e7;
+  --ring: rgba(20, 184, 166, 0.35);
+  --page-gradient:
+    radial-gradient(ellipse 90% 60% at 50% -15%, rgba(20, 184, 166, 0.1), transparent 55%),
+    linear-gradient(180deg, #ffffff 0%, #f4f4f5 100%);
+  --nav-glow: 0 0 18px rgba(20, 184, 166, 0.45);
+  --heading-gradient: linear-gradient(135deg, #18181b 0%, #3f3f46 55%, #0f766e 100%);
+}
+
+.dark {
+  --background: #09090b;
+  --foreground: #fafafa;
+  --muted: #a1a1aa;
+  --accent: #2dd4bf;
+  --accent-soft: rgba(45, 212, 191, 0.16);
+  --surface: #18181b;
+  --border: #27272a;
+  --ring: rgba(45, 212, 191, 0.4);
+  --page-gradient:
+    radial-gradient(ellipse 90% 60% at 50% -15%, rgba(45, 212, 191, 0.12), transparent 55%),
+    linear-gradient(180deg, #111113 0%, #09090b 100%);
+  --nav-glow: 0 0 22px rgba(45, 212, 191, 0.55);
+  --heading-gradient: linear-gradient(135deg, #ffffff 0%, #d4d4d8 50%, #5eead4 100%);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --font-sans: var(--font-sans-family);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
+  background-image: var(--page-gradient);
+  background-attachment: fixed;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--foreground);
+}
+
+/* Typography scale */
+.text-display {
+  font-size: clamp(1.625rem, 3.5vw, 2.5rem);
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.text-page-title {
+  font-size: clamp(1.5rem, 2.75vw, 2.125rem);
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.text-body {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+@media (min-width: 640px) {
+  .text-body {
+    font-size: 1rem;
+  }
+}
+
+.text-body-lg {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+@media (min-width: 640px) {
+  .text-body-lg {
+    font-size: 1.0625rem;
+  }
+}
+
+.text-nav {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.text-meta {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.text-heading-gradient {
+  background-image: var(--heading-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.nav-active {
+  color: var(--accent);
+}
+
+.nav-active::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -0.35rem;
+  width: 1.25rem;
+  height: 2px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  box-shadow: var(--nav-glow);
 }
