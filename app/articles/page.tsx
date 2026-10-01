@@ -5,7 +5,7 @@ import { articles } from '../../lib/data/articles';
 
 export const metadata: Metadata = {
   title: 'Articles - Portfolio',
-  description: 'Thoughts on software engineering, design, and technology.',
+  description: 'Writing on software engineering and AI, published on LinkedIn.',
 };
 
 export default function ArticlesPage() {
@@ -13,17 +13,17 @@ export default function ArticlesPage() {
     <div>
       <PageHeading
         title="Articles"
-        description="Thoughts on software engineering, design, and technology."
+        description="Thoughts on software engineering and AI. Full posts are on LinkedIn."
       />
-      
+
       <div className="space-y-0">
         {articles.map((article) => (
           <ArticleListItem
             key={article.slug}
-            slug={article.slug}
             date={article.date}
             title={article.title}
             description={article.description}
+            url={article.url}
           />
         ))}
       </div>

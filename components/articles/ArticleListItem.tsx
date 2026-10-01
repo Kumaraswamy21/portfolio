@@ -1,15 +1,21 @@
 import Link from 'next/link';
 
 interface ArticleListItemProps {
-  slug: string;
   date: string;
   title: string;
   description: string;
+  url: string;
 }
 
-export default function ArticleListItem({ slug, date, title, description }: ArticleListItemProps) {
+export default function ArticleListItem({ date, title, description, url }: ArticleListItemProps) {
   return (
-    <Link href={`/articles/${slug}`} className="group block">
+    <Link
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group block"
+      aria-label={`${title} (opens on LinkedIn in a new tab)`}
+    >
       <article className="border-b border-border py-7 last:border-0">
         <time className="text-meta mb-2 block text-muted">{date}</time>
 
@@ -22,7 +28,7 @@ export default function ArticleListItem({ slug, date, title, description }: Arti
         </p>
 
         <span className="text-meta inline-block font-medium text-accent">
-          Read article →
+          Read on LinkedIn →
         </span>
       </article>
     </Link>

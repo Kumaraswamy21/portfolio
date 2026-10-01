@@ -36,5 +36,5 @@ export interface Article {
   date: string;
   title: string;
   description: string;
-  content: string;
+  url: string;
 }
